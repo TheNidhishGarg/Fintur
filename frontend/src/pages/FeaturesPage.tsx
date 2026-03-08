@@ -6,7 +6,7 @@ import {
     BarChart2,
     PieChart,
     Search,
-    LogOut,
+    Home,
 } from "lucide-react";
 import { useAuthStore } from "../lib/store/authStore.ts";
 
@@ -206,7 +206,6 @@ export default function FeaturesPage() {
                     <button
                         onClick={() => {
                             navigate("/");
-                            clearAuth();
                         }}
                         style={{
                             background: "none",
@@ -226,7 +225,7 @@ export default function FeaturesPage() {
                             e.currentTarget.style.background = "none";
                         }}
                     >
-                        <LogOut size={20} color="#6B7A8D" />
+                        <Home size={20} color="#6B7A8D" />
                     </button>
                 </div>
             </nav>

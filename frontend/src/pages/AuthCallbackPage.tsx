@@ -25,7 +25,7 @@ export default function AuthCallbackPage() {
             console.log("AuthCallback - user:", user);
             setAuth(token, user);
 
-            if (user.birth_year && user.tier) {
+            if (user.tier !== null && user.tier !== undefined && user.tier !== "") {
                 console.log("Already onboarded, redirecting to features");
                 navigate("/features");
             } else {

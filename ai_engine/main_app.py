@@ -15,23 +15,45 @@ from app.rag.query import search_company_documents
 
 load_dotenv()
 
-if not os.getenv("GOOGLE_API_KEY"):
-    print("⚠️  Error: GOOGLE_API_KEY missing in .env file")
+# ── Key Rotation ──────────────────────────────────────────────────────────────
+GOOGLE_API_KEYS = [
+    os.getenv("GOOGLE_API_KEY_1"),
+    os.getenv("GOOGLE_API_KEY_2"),
+    os.getenv("GOOGLE_API_KEY_3"),
+    os.getenv("GOOGLE_API_KEY"),
+]
+GOOGLE_API_KEYS = [k for k in GOOGLE_API_KEYS if k]
+
+if not GOOGLE_API_KEYS:
+    print("⚠️  Error: No GOOGLE_API_KEY found in environment")
     sys.exit(1)
 
+current_key_index = 0
 
-# ── LLM ──────────────────────────────────────────────────────────────────────
-llm = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash-lite",
-    temperature=0,
-    max_retries=3,
-    safety_settings={
-        "HARM_CATEGORY_HARASSMENT":        "BLOCK_NONE",
-        "HARM_CATEGORY_HATE_SPEECH":       "BLOCK_NONE",
-        "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
-        "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
-    },
-)
+def get_llm():
+    global current_key_index
+    for i in range(len(GOOGLE_API_KEYS)):
+        key = GOOGLE_API_KEYS[(current_key_index + i) % len(GOOGLE_API_KEYS)]
+        try:
+            os.environ["GOOGLE_API_KEY"] = key
+            llm = ChatGoogleGenerativeAI(
+                model="gemini-2.5-flash-lite",
+                temperature=0,
+                max_retries=2,
+                safety_settings={
+                    "HARM_CATEGORY_HARASSMENT":        "BLOCK_NONE",
+                    "HARM_CATEGORY_HATE_SPEECH":       "BLOCK_NONE",
+                    "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
+                    "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
+                },
+            )
+            current_key_index = (current_key_index + i + 1) % len(GOOGLE_API_KEYS)
+            return llm
+        except Exception:
+            continue
+    raise Exception("All Google API keys exhausted")
+
+llm = get_llm()
 
 # ── Tools ─────────────────────────────────────────────────────────────────────
 tools = [

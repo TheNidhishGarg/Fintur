@@ -36,7 +36,15 @@ def health():
 @app.post("/analyze-stock")
 async def analyze_stock(body: StockQuery):
     try:
-        result = agent.invoke(
+        from main_app import get_llm, tools, SYSTEM_PROMPT
+        from langgraph.prebuilt import create_react_agent
+        current_llm = get_llm()
+        current_agent = create_react_agent(
+            model=current_llm,
+            tools=tools,
+            prompt=SYSTEM_PROMPT,
+        )
+        result = current_agent.invoke(
             {"messages": [HumanMessage(content=body.query)]}
         )
         output_message = result["messages"][-1]

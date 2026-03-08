@@ -1,0 +1,47 @@
+# Core
+pandas
+numpy
+requests
+python-dotenv
+
+# Web scraping
+bs4
+beautifulsoup4
+lxml
+urllib3
+
+# LangChain ecosystem
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-google-genai
+
+# LangGraph
+langgraph
+langgraph-prebuilt
+langgraph-checkpoint
+
+# Google AI
+google-genai
+google-generativeai
+
+# Vector store
+faiss-cpu
+
+# Financial data
+yfinance
+pandas_ta
+
+# PDF processing
+pymupdf
+
+# News search
+tavily-python
+
+# Misc
+xxhash
+pydantic
+
+scipy
+python-dateutil

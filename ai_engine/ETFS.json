@@ -1,0 +1,914 @@
+{
+    "report_metadata": {
+        "title": "2025-2026 NSE ETF Research Report",
+        "methodology": "Ranked based on a combination of tracking error, expense ratio, 3-year CAGR consistency, and daily trading volume.",
+        "liquidity_flags": {
+            "High": "AUM >= ₹1000 Cr",
+            "Medium": "AUM ₹200–999 Cr",
+            "Low": "AUM < ₹200 Cr (Higher Risk)"
+        }
+    },
+    "categories": [
+        {
+            "category_id": 1,
+            "category_name": "Large Cap Equity",
+            "benchmark": "Nifty 50",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "SBI Nifty 50 ETF",
+                    "ticker": "SETFNIF50",
+                    "aum_cr": 213439,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.04,
+                    "returns_pct": {
+                        "1Y": 9.7,
+                        "3Y": 14.1,
+                        "5Y": 15.2
+                    },
+                    "tracking_error_pct": 0.02,
+                    "index": "Nifty 50",
+                    "fund_house": "SBI MF",
+                    "reason_for_rank": "Massive AUM ensuring the tightest bid-ask spreads and lowest tracking error.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "Nippon India ETF Nifty 50 BeES",
+                    "ticker": "NIFTYBEES",
+                    "aum_cr": 15200,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.04,
+                    "returns_pct": {
+                        "1Y": 9.7,
+                        "3Y": 14.0,
+                        "5Y": 15.1
+                    },
+                    "tracking_error_pct": 0.02,
+                    "index": "Nifty 50",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "High retail participation yielding superior daily liquidity.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "ICICI Prudential Nifty 50 ETF",
+                    "ticker": "ICICINIFTY",
+                    "aum_cr": 10500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.03,
+                    "returns_pct": {
+                        "1Y": 9.8,
+                        "3Y": 13.9,
+                        "5Y": 15.1
+                    },
+                    "tracking_error_pct": 0.03,
+                    "index": "Nifty 50",
+                    "fund_house": "ICICI Pru",
+                    "reason_for_rank": "Aggressive pricing on the expense ratio while maintaining solid tracking.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 2,
+            "category_name": "Large & Mid Cap",
+            "benchmark": "Nifty 100",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India ETF Nifty 100",
+                    "ticker": "NIFTY100",
+                    "aum_cr": 650,
+                    "liquidity_flag": "Medium",
+                    "expense_ratio_pct": 0.15,
+                    "returns_pct": {
+                        "1Y": 12.4,
+                        "3Y": 15.2,
+                        "5Y": 16.0
+                    },
+                    "tracking_error_pct": 0.06,
+                    "index": "Nifty 100",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Best sustained volume in a category that traditionally sees lower trading activity.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "ICICI Prudential Nifty 100 ETF",
+                    "ticker": "ICICINF100",
+                    "aum_cr": 120,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.15,
+                    "returns_pct": {
+                        "1Y": 12.3,
+                        "3Y": 15.1,
+                        "5Y": 15.9
+                    },
+                    "tracking_error_pct": 0.07,
+                    "index": "Nifty 100",
+                    "fund_house": "ICICI Pru",
+                    "reason_for_rank": "Good underlying fund structure but suffers from lower secondary market volume.",
+                    "pick_type": "High Conviction"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "SBI Nifty 100 ETF",
+                    "ticker": "SETFNIF100",
+                    "aum_cr": 850,
+                    "liquidity_flag": "Medium",
+                    "expense_ratio_pct": 0.16,
+                    "returns_pct": {
+                        "1Y": 12.2,
+                        "3Y": 15.0,
+                        "5Y": 15.8
+                    },
+                    "tracking_error_pct": 0.08,
+                    "index": "Nifty 100",
+                    "fund_house": "SBI MF",
+                    "reason_for_rank": "Institutional backing provides stability, though retail spreads can be wide.",
+                    "pick_type": "Core Pick"
+                }
+            ]
+        },
+        {
+            "category_id": 3,
+            "category_name": "Mid Cap",
+            "benchmark": "Nifty Midcap 150",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India ETF Nifty Midcap 150",
+                    "ticker": "MID150BEES",
+                    "aum_cr": 2802,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.21,
+                    "returns_pct": {
+                        "1Y": 35.2,
+                        "3Y": 23.5,
+                        "5Y": 24.8
+                    },
+                    "tracking_error_pct": 0.13,
+                    "index": "Nifty Midcap 150",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Exceptional liquidity and the standard benchmark ETF for midcap exposure.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "Mirae Asset Nifty Midcap 150 ETF",
+                    "ticker": "MIDCAPETF",
+                    "aum_cr": 1450,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.15,
+                    "returns_pct": {
+                        "1Y": 35.5,
+                        "3Y": 23.6,
+                        "5Y": 24.9
+                    },
+                    "tracking_error_pct": 0.15,
+                    "index": "Nifty Midcap 150",
+                    "fund_house": "Mirae Asset",
+                    "reason_for_rank": "Lower expense ratio than Nippon, making it excellent for long-term holding.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Zerodha Nifty Midcap 150 ETF",
+                    "ticker": "MID150CASE",
+                    "aum_cr": 150,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.21,
+                    "returns_pct": {
+                        "1Y": 35.1,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.14,
+                    "index": "Nifty Midcap 150",
+                    "fund_house": "Zerodha",
+                    "reason_for_rank": "Direct, passive-only AMC approach; good for systematic investors despite lower AUM.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 4,
+            "category_name": "Small Cap",
+            "benchmark": "Nifty Smallcap 250",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India Nifty Smallcap 250 ETF",
+                    "ticker": "SMA250BEES",
+                    "aum_cr": 1350,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.25,
+                    "returns_pct": {
+                        "1Y": 45.1,
+                        "3Y": 26.2,
+                        "5Y": 28.1
+                    },
+                    "tracking_error_pct": 0.18,
+                    "index": "Nifty Smallcap 250",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Highest daily volume in the small-cap ETF space, minimizing impact costs.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "Motilal Oswal Nifty Smallcap 250 ETF",
+                    "ticker": "MOSMALL250",
+                    "aum_cr": 550,
+                    "liquidity_flag": "Medium",
+                    "expense_ratio_pct": 0.28,
+                    "returns_pct": {
+                        "1Y": 44.8,
+                        "3Y": 26.0,
+                        "5Y": 28.0
+                    },
+                    "tracking_error_pct": 0.20,
+                    "index": "Nifty Smallcap 250",
+                    "fund_house": "Motilal Oswal",
+                    "reason_for_rank": "Consistent tracking of the volatile small-cap universe with adequate liquidity.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "HDFC Nifty Smallcap 250 ETF",
+                    "ticker": "HDFCSML250",
+                    "aum_cr": 190,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.20,
+                    "returns_pct": {
+                        "1Y": 45.0,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.22,
+                    "index": "Nifty Smallcap 250",
+                    "fund_house": "HDFC MF",
+                    "reason_for_rank": "Highly competitive expense ratio for cost-conscious investors.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 5,
+            "category_name": "Flexi/Multi Cap",
+            "benchmark": "Nifty 500",
+            "notes": "The Indian market relies on 'Nifty 500' for broad-market/flexi-cap ETF representation. Liquidity in this segment is historically low. Fewer than 3 highly liquid ETFs exist in this specific category.",
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Motilal Oswal Nifty 500 ETF",
+                    "ticker": "MONIFTY500",
+                    "aum_cr": 450,
+                    "liquidity_flag": "Medium",
+                    "expense_ratio_pct": 0.25,
+                    "returns_pct": {
+                        "1Y": 18.2,
+                        "3Y": 16.5,
+                        "5Y": 17.5
+                    },
+                    "tracking_error_pct": 0.11,
+                    "index": "Nifty 500",
+                    "fund_house": "Motilal Oswal",
+                    "reason_for_rank": "Best available proxy for a flexi-cap ETF with acceptable daily volumes.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "ICICI Prudential Nifty 500 ETF",
+                    "ticker": "ICICINF500",
+                    "aum_cr": 110,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.20,
+                    "returns_pct": {
+                        "1Y": 18.3,
+                        "3Y": 16.6,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.14,
+                    "index": "Nifty 500",
+                    "fund_house": "ICICI Pru",
+                    "reason_for_rank": "Lower costs but requires limit orders due to wider bid-ask spreads.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 6,
+            "category_name": "Value / Contra",
+            "benchmark": "Various Value Indices",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India Nifty 500 Value 50 ETF",
+                    "ticker": "VALUE50",
+                    "aum_cr": 220,
+                    "liquidity_flag": "Medium",
+                    "expense_ratio_pct": 0.25,
+                    "returns_pct": {
+                        "1Y": 38.5,
+                        "3Y": 24.1,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.15,
+                    "index": "Nifty 500 Value 50",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Captures value premium across caps with decent market-maker support.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "ICICI Prudential Nifty 200 Value 30 ETF",
+                    "ticker": "VALUE30",
+                    "aum_cr": 160,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.20,
+                    "returns_pct": {
+                        "1Y": 37.1,
+                        "3Y": 23.5,
+                        "5Y": 22.0
+                    },
+                    "tracking_error_pct": 0.18,
+                    "index": "Nifty 200 Value 30",
+                    "fund_house": "ICICI Pru",
+                    "reason_for_rank": "Highly concentrated, high-conviction value play with low costs.",
+                    "pick_type": "High Conviction"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Kotak Nifty 500 Value 50 ETF",
+                    "ticker": "KOTAKVAL50",
+                    "aum_cr": 85,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.22,
+                    "returns_pct": {
+                        "1Y": 38.2,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.16,
+                    "index": "Nifty 500 Value 50",
+                    "fund_house": "Kotak MF",
+                    "reason_for_rank": "Good fundamental tracking but very low secondary market liquidity.",
+                    "pick_type": "Core Pick"
+                }
+            ]
+        },
+        {
+            "category_id": 7,
+            "category_name": "Debt / Liquid",
+            "benchmark": "Nifty 1D Rate",
+            "notes": "Overnight or Liquid ETFs",
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India ETF Nifty 1D Rate Liquid BeES",
+                    "ticker": "LIQUIDBEES",
+                    "aum_cr": 11000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.60,
+                    "returns_pct": {
+                        "1Y": 6.8,
+                        "3Y": 6.1,
+                        "5Y": 5.5
+                    },
+                    "tracking_error_pct": null,
+                    "index": "Nifty 1D Rate",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "The absolute standard for parking cash in demat accounts; pays out in fractional units.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "DSP Nifty 1D Rate Liquid ETF",
+                    "ticker": "LIQUIDETF",
+                    "aum_cr": 1500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.55,
+                    "returns_pct": {
+                        "1Y": 6.9,
+                        "3Y": 6.2,
+                        "5Y": 5.6
+                    },
+                    "tracking_error_pct": null,
+                    "index": "Nifty 1D Rate",
+                    "fund_house": "DSP MF",
+                    "reason_for_rank": "Excellent alternative to LiquidBeES with slightly better cost structure.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Zerodha Nifty 1D Rate Liquid ETF",
+                    "ticker": "LIQUIDCASE",
+                    "aum_cr": 800,
+                    "liquidity_flag": "Medium",
+                    "expense_ratio_pct": 0.25,
+                    "returns_pct": {
+                        "1Y": 7.0,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": null,
+                    "index": "Nifty 1D Rate",
+                    "fund_house": "Zerodha",
+                    "reason_for_rank": "Innovative Growth-NAV based liquid ETF (doesn't issue fractional units), very tax efficient.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 8,
+            "category_name": "Short Duration Debt",
+            "benchmark": "1-3 year",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Bharat Bond ETF - April 2026",
+                    "ticker": "EBBETF0426",
+                    "aum_cr": 9500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.00,
+                    "returns_pct": {
+                        "1Y": 7.2,
+                        "3Y": 6.8,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.05,
+                    "index": "Nifty BHARAT Bond 2026",
+                    "fund_house": "Edelweiss",
+                    "reason_for_rank": "Rock-solid AAA PSU portfolio with target maturity predictability.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "SBI CPSE Bond Plus SDL Sep 2026 ETF",
+                    "ticker": "SBICPSE26",
+                    "aum_cr": 1200,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.15,
+                    "returns_pct": {
+                        "1Y": 7.3,
+                        "3Y": 6.9,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.06,
+                    "index": "Nifty CPSE SDL Sep 2026",
+                    "fund_house": "SBI MF",
+                    "reason_for_rank": "Blends state debt and PSU bonds for a slight yield kicker.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Axis Nifty SDL Sep 2026 Debt ETF",
+                    "ticker": "AXISSDL26",
+                    "aum_cr": 150,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.15,
+                    "returns_pct": {
+                        "1Y": 7.4,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.08,
+                    "index": "Nifty SDL Sep 2026",
+                    "fund_house": "Axis MF",
+                    "reason_for_rank": "Pure state government debt exposure but trades with lower volume.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 9,
+            "category_name": "Corporate Bond",
+            "benchmark": "Target Maturity",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Bharat Bond ETF - April 2030",
+                    "ticker": "EBBETF0430",
+                    "aum_cr": 12000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.00,
+                    "returns_pct": {
+                        "1Y": 7.5,
+                        "3Y": 7.1,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.05,
+                    "index": "Nifty BHARAT Bond 2030",
+                    "fund_house": "Edelweiss",
+                    "reason_for_rank": "Massive liquidity and essentially free (0.0005% ER) exposure to top-tier PSU bonds.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "Bharat Bond ETF - April 2031",
+                    "ticker": "EBBETF0431",
+                    "aum_cr": 10500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.00,
+                    "returns_pct": {
+                        "1Y": 7.5,
+                        "3Y": 7.1,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.05,
+                    "index": "Nifty BHARAT Bond 2031",
+                    "fund_house": "Edelweiss",
+                    "reason_for_rank": "Excellent for locking in corporate bond yields for the next 5-6 years.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Bharat Bond ETF - April 2032",
+                    "ticker": "EBBETF0432",
+                    "aum_cr": 8000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.00,
+                    "returns_pct": {
+                        "1Y": 7.6,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.06,
+                    "index": "Nifty BHARAT Bond 2032",
+                    "fund_house": "Edelweiss",
+                    "reason_for_rank": "Longer duration high-quality play with stellar pricing.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 10,
+            "category_name": "Government Securities / Gilt",
+            "benchmark": "G-Sec",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India Nifty 8-13 yr G-Sec ETF",
+                    "ticker": "GILTBEES",
+                    "aum_cr": 2200,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.14,
+                    "returns_pct": {
+                        "1Y": 8.1,
+                        "3Y": 6.8,
+                        "5Y": 6.5
+                    },
+                    "tracking_error_pct": 0.08,
+                    "index": "Nifty 8-13 yr G-Sec",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "The most liquid standalone sovereign debt ETF in India.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "SBI Nifty 10 yr Benchmark G-Sec ETF",
+                    "ticker": "SETF10GSEC",
+                    "aum_cr": 1500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.15,
+                    "returns_pct": {
+                        "1Y": 8.0,
+                        "3Y": 6.7,
+                        "5Y": 6.4
+                    },
+                    "tracking_error_pct": 0.07,
+                    "index": "Nifty 10 yr Benchmark",
+                    "fund_house": "SBI MF",
+                    "reason_for_rank": "Directly tracks the 10-year yield benchmark with solid institutional flow.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "LIC MF Nifty 8-13 yr G-Sec ETF",
+                    "ticker": "LICNETFGSC",
+                    "aum_cr": 120,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.16,
+                    "returns_pct": {
+                        "1Y": 7.9,
+                        "3Y": 6.6,
+                        "5Y": 6.3
+                    },
+                    "tracking_error_pct": 0.12,
+                    "index": "Nifty 8-13 yr G-Sec",
+                    "fund_house": "LIC MF",
+                    "reason_for_rank": "Good underlying portfolio but struggles with bid-ask spreads on the exchange.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 11,
+            "category_name": "Gold",
+            "benchmark": "Domestic Gold",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India ETF Gold BeES",
+                    "ticker": "GOLDBEES",
+                    "aum_cr": 9500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.79,
+                    "returns_pct": {
+                        "1Y": 15.2,
+                        "3Y": 12.5,
+                        "5Y": 11.8
+                    },
+                    "tracking_error_pct": 0.15,
+                    "index": "Domestic Gold",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Deepest liquidity pool among gold ETFs; practically zero premium/discount to NAV.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "HDFC Gold Exchange Traded Fund",
+                    "ticker": "HDFCGOLD",
+                    "aum_cr": 4200,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.55,
+                    "returns_pct": {
+                        "1Y": 15.5,
+                        "3Y": 12.8,
+                        "5Y": 12.0
+                    },
+                    "tracking_error_pct": 0.12,
+                    "index": "Domestic Gold",
+                    "fund_house": "HDFC MF",
+                    "reason_for_rank": "Better expense ratio than GoldBeES while maintaining excellent volume.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Zerodha Gold ETF",
+                    "ticker": "GOLDCASE",
+                    "aum_cr": 180,
+                    "liquidity_flag": "Low",
+                    "expense_ratio_pct": 0.30,
+                    "returns_pct": {
+                        "1Y": 15.8,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.10,
+                    "index": "Domestic Gold",
+                    "fund_house": "Zerodha",
+                    "reason_for_rank": "Highly aggressive pricing model aimed at undercutting older gold funds.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 12,
+            "category_name": "Silver",
+            "benchmark": "Domestic Silver",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India Silver ETF",
+                    "ticker": "SILVERBEES",
+                    "aum_cr": 1800,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.50,
+                    "returns_pct": {
+                        "1Y": 22.1,
+                        "3Y": 14.5,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.25,
+                    "index": "Domestic Silver",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Leads the recently established silver ETF category in trading volume.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "ICICI Prudential Silver ETF",
+                    "ticker": "ICICISILVE",
+                    "aum_cr": 1200,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.40,
+                    "returns_pct": {
+                        "1Y": 22.3,
+                        "3Y": 14.7,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.20,
+                    "index": "Domestic Silver",
+                    "fund_house": "ICICI Pru",
+                    "reason_for_rank": "Lower expenses and efficient tracking of domestic silver prices.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "HDFC Silver ETF",
+                    "ticker": "HDFCSILVER",
+                    "aum_cr": 450,
+                    "liquidity_flag": "Medium",
+                    "expense_ratio_pct": 0.40,
+                    "returns_pct": {
+                        "1Y": 22.2,
+                        "3Y": null,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.22,
+                    "index": "Domestic Silver",
+                    "fund_house": "HDFC MF",
+                    "reason_for_rank": "Strong brand backing ensures fair market-making and tight spreads.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 13,
+            "category_name": "International Equity",
+            "benchmark": "US Markets",
+            "notes": "Due to RBI limits on foreign remittances, NSE has only two pure, active direct US index ETFs.",
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Motilal Oswal NASDAQ 100 ETF",
+                    "ticker": "MON100",
+                    "aum_cr": 8500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.58,
+                    "returns_pct": {
+                        "1Y": 45.2,
+                        "3Y": 18.5,
+                        "5Y": 22.4
+                    },
+                    "tracking_error_pct": 0.25,
+                    "index": "NASDAQ 100",
+                    "fund_house": "Motilal Oswal",
+                    "reason_for_rank": "The premier tech-heavy US ETF in India with a massive historical track record.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "Mirae Asset S&P 500 Top 50 ETF",
+                    "ticker": "MASPTOP50",
+                    "aum_cr": 2400,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.50,
+                    "returns_pct": {
+                        "1Y": 32.1,
+                        "3Y": 16.5,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": 0.22,
+                    "index": "S&P 500 Top 50",
+                    "fund_house": "Mirae Asset",
+                    "reason_for_rank": "The closest proxy to the S&P 500 available directly on the NSE exchange.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 14,
+            "category_name": "Hybrid / Balanced Advantage",
+            "benchmark": "Various",
+            "notes": "Currently, there are no pure Hybrid or Balanced Advantage ETFs actively traded on NSE India. Investors exclusively use mutual funds for this dynamic asset allocation category. There are no ETFs to rank here.",
+            "etfs": []
+        },
+        {
+            "category_id": 15,
+            "category_name": "REIT (Real Estate Investment Trust)",
+            "benchmark": "Real Estate",
+            "notes": "REITs are trusts, not mutual fund-structured ETFs, but they trade exactly like ETFs on the NSE to provide real estate exposure.",
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Embassy Office Parks REIT",
+                    "ticker": "EMBASSY",
+                    "aum_cr": 32000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": null,
+                    "returns_pct": {
+                        "1Y": 14.5,
+                        "3Y": 8.5,
+                        "5Y": 7.0
+                    },
+                    "tracking_error_pct": null,
+                    "index": null,
+                    "fund_house": "Embassy",
+                    "reason_for_rank": "Largest commercial real estate portfolio yielding consistent dividends.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "Mindspace Business Parks REIT",
+                    "ticker": "MINDSPACE",
+                    "aum_cr": 20000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": null,
+                    "returns_pct": {
+                        "1Y": 12.1,
+                        "3Y": 9.0,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": null,
+                    "index": null,
+                    "fund_house": "K Raheja Corp",
+                    "reason_for_rank": "Excellent tenant retention and capital appreciation metrics.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Brookfield India Real Estate Trust",
+                    "ticker": "BIRET",
+                    "aum_cr": 15000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": null,
+                    "returns_pct": {
+                        "1Y": 10.5,
+                        "3Y": 7.5,
+                        "5Y": null
+                    },
+                    "tracking_error_pct": null,
+                    "index": null,
+                    "fund_house": "Brookfield",
+                    "reason_for_rank": "Strong global sponsor, slightly higher yield compensating for slower capital growth.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        },
+        {
+            "category_id": 16,
+            "category_name": "Thematic / Sectoral",
+            "benchmark": "Various",
+            "notes": null,
+            "etfs": [
+                {
+                    "rank": 1,
+                    "full_name": "Nippon India ETF Nifty Bank BeES",
+                    "ticker": "BANKBEES",
+                    "aum_cr": 8000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.16,
+                    "returns_pct": {
+                        "1Y": 14.2,
+                        "3Y": 15.5,
+                        "5Y": 12.5
+                    },
+                    "tracking_error_pct": 0.05,
+                    "index": "Nifty Bank",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "The most liquid sectoral ETF in India, vital for financial exposure.",
+                    "pick_type": "Safest Pick"
+                },
+                {
+                    "rank": 2,
+                    "full_name": "CPSE ETF",
+                    "ticker": "CPSEETF",
+                    "aum_cr": 25000,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.05,
+                    "returns_pct": {
+                        "1Y": 65.5,
+                        "3Y": 45.2,
+                        "5Y": 22.5
+                    },
+                    "tracking_error_pct": 0.10,
+                    "index": "Nifty CPSE",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Massive PSU momentum and high dividend yield backed by the government.",
+                    "pick_type": "Core Pick"
+                },
+                {
+                    "rank": 3,
+                    "full_name": "Nippon India ETF Nifty IT",
+                    "ticker": "ITBEES",
+                    "aum_cr": 1500,
+                    "liquidity_flag": "High",
+                    "expense_ratio_pct": 0.22,
+                    "returns_pct": {
+                        "1Y": 25.1,
+                        "3Y": 12.0,
+                        "5Y": 18.5
+                    },
+                    "tracking_error_pct": 0.08,
+                    "index": "Nifty IT",
+                    "fund_house": "Nippon India",
+                    "reason_for_rank": "Best vehicle for pure Indian software/infrastructure tech exposure.",
+                    "pick_type": "High Conviction"
+                }
+            ]
+        }
+    ]
+}

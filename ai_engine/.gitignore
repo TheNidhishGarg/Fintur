@@ -1,0 +1,44 @@
+## Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+## Virtual environments
+venv/
+venv*/ 
+env/
+.envrc
+
+## Environment and secrets
+.env
+*.env.local
+
+## IDE / editor
+.vscode/
+.idea/
+*.iml
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Test & coverage
+.pytest_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+## Logs
+*.log
+
+## Project-specific runtime files
+user_profile.json
+backtest_results.json
+
+# NOTE: We intentionally do NOT ignore app/data/vector_stores/
+# so that pre-built FAISS indices (e.g. for HCL) can be committed
+# and reused by other users for faster backtesting.
+

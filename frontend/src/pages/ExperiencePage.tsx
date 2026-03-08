@@ -19,27 +19,21 @@ export default function ExperiencePage() {
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const ITEM_HEIGHT = 48;
-    const YEARS = Array.from({ length: 2006 - 1950 + 1 }, (_, i) => 1950 + i);
+    const CONTAINER_HEIGHT = 280;
+    const VISIBLE_ITEMS = Math.floor(CONTAINER_HEIGHT / ITEM_HEIGHT); // 5
+    const PADDING_ITEMS = Math.floor(VISIBLE_ITEMS / 2); // 2
+    const YEARS = Array.from({ length: 2007 - 1950 + 1 }, (_, i) => 1950 + i);
 
-    // Sync scroll position on mount or when birthYear changes
     useEffect(() => {
         if (scrollRef.current && step === 0) {
             const index = YEARS.indexOf(birthYear);
-            if (index !== -1) {
-                // We want to center the item. Container is 280px high. 
-                // Middle is at 140px. 
-                // Item center should be at 140px.
-                // ScrollTop = (index * 48) - (140 - 24) = (index * 48) - 116
-                scrollRef.current.scrollTop = index * ITEM_HEIGHT - (140 - ITEM_HEIGHT / 2);
-            }
+            scrollRef.current.scrollTop = index * ITEM_HEIGHT;
         }
     }, [step]);
 
     const handleScroll = () => {
         if (!scrollRef.current) return;
-        const scrollTop = scrollRef.current.scrollTop;
-        const centerOffset = 140 - ITEM_HEIGHT / 2;
-        const index = Math.round((scrollTop + centerOffset) / ITEM_HEIGHT);
+        const index = Math.round(scrollRef.current.scrollTop / ITEM_HEIGHT);
         if (index >= 0 && index < YEARS.length) {
             setBirthYear(YEARS[index]);
         }
@@ -50,7 +44,7 @@ export default function ExperiencePage() {
         if (scrollRef.current) {
             const index = YEARS.indexOf(year);
             scrollRef.current.scrollTo({
-                top: index * ITEM_HEIGHT - (140 - ITEM_HEIGHT / 2),
+                top: index * ITEM_HEIGHT,
                 behavior: "smooth"
             });
         }
@@ -156,7 +150,8 @@ export default function ExperiencePage() {
                                     <div
                                         ref={scrollRef}
                                         onScroll={handleScroll}
-                                        className="h-full overflow-y-scroll no-scrollbar py-[116px]"
+                                        className="h-full overflow-y-scroll no-scrollbar"
+                                        style={{ paddingTop: `${PADDING_ITEMS * ITEM_HEIGHT}px`, paddingBottom: `${PADDING_ITEMS * ITEM_HEIGHT}px` }}
                                     >
                                         {YEARS.map((year) => {
                                             const isSelected = year === birthYear;
@@ -166,8 +161,8 @@ export default function ExperiencePage() {
                                                     key={year}
                                                     onClick={() => handleYearClick(year)}
                                                     className={`h-[48px] flex items-center justify-center cursor-pointer transition-all ${isSelected ? "text-[#0F1A2E] text-[22px] font-bold" :
-                                                            isAdjacent ? "text-[#6B7A8D] text-[16px]" :
-                                                                "text-[#6B7A8D] opacity-40 text-[14px]"
+                                                        isAdjacent ? "text-[#6B7A8D] text-[16px]" :
+                                                            "text-[#6B7A8D] opacity-40 text-[14px]"
                                                         }`}
                                                 >
                                                     {year}
@@ -287,19 +282,27 @@ export default function ExperiencePage() {
                         </button>
                     ) : <div />}
 
-                    <button
-                        onClick={handleNext}
-                        disabled={isNextDisabled() || loading}
-                        className={`bg-[#5E8B7E] text-white px-8 py-3 rounded-full text-[15px] font-medium flex items-center gap-1 transition-all duration-300 shadow-lg shadow-[#5E8B7E]/25 ${isNextDisabled() || loading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#4A7A6D] hover:-translate-y-0.5"
-                            }`}
-                    >
-                        {loading ? "Saving..." : step === 3 ? "Let's Go →" : (
-                            <>
-                                Continue
-                                <ChevronRight size={18} />
-                            </>
-                        )}
-                    </button>
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => navigate("/features")}
+                            className="text-[#6B7A8D] hover:text-[#5E8B7E] transition-colors text-[14px] font-medium"
+                        >
+                            Skip
+                        </button>
+                        <button
+                            onClick={handleNext}
+                            disabled={isNextDisabled() || loading}
+                            className={`bg-[#5E8B7E] text-white px-8 py-3 rounded-full text-[15px] font-medium flex items-center gap-1 transition-all duration-300 shadow-lg shadow-[#5E8B7E]/25 ${isNextDisabled() || loading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#4A7A6D] hover:-translate-y-0.5"
+                                }`}
+                        >
+                            {loading ? "Saving..." : step === 3 ? "Let's Go →" : (
+                                <>
+                                    Continue
+                                    <ChevronRight size={18} />
+                                </>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </main>
 

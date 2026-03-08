@@ -206,15 +206,32 @@ export default function LearnPage() {
                     </div>
 
                     {/* Page indicator */}
-                    <span
-                        style={{
-                            fontFamily: "'DM Sans', sans-serif",
-                            fontSize: "13px",
-                            color: "#6B7A8D",
-                        }}
-                    >
-                        {current + 1} of 10
-                    </span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                        <button
+                            onClick={() => navigate("/features")}
+                            style={{
+                                background: "none",
+                                border: "none",
+                                cursor: "pointer",
+                                fontFamily: "'DM Sans', sans-serif",
+                                fontSize: "14px",
+                                color: "#6B7A8D",
+                                fontWeight: 500,
+                                padding: "4px 8px",
+                            }}
+                        >
+                            Skip
+                        </button>
+                        <span
+                            style={{
+                                fontFamily: "'DM Sans', sans-serif",
+                                fontSize: "13px",
+                                color: "#6B7A8D",
+                            }}
+                        >
+                            {current + 1} of 10
+                        </span>
+                    </div>
                 </div>
 
                 {/* PROGRESS BAR */}

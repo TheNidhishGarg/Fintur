@@ -25,12 +25,12 @@ export default function AuthCallbackPage() {
             console.log("AuthCallback - user:", user);
             setAuth(token, user);
 
-            if (user.tier === null || user.tier === undefined) {
-                console.log("No tier, redirecting to experience");
-                navigate("/experience");
+            if (user.birth_year && user.tier) {
+                console.log("Already onboarded, redirecting to features");
+                navigate("/features");
             } else {
-                console.log("Has tier, redirecting to dashboard");
-                navigate("/dashboard");
+                console.log("New user, redirecting to experience");
+                navigate("/experience");
             }
         } catch (err) {
             console.error("Parse error:", err);

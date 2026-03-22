@@ -67,19 +67,27 @@ async def advisor_message(body: AdvisorMessage):
         import os
         import re
         import json
-        from agent1advisor import build_system_prompt
+        from agent1advisor import (
+            build_system_prompt,
+            fetch_top_etf_options,
+            run_portfolio_backtest,
+        )
         from langchain_google_genai import ChatGoogleGenerativeAI
         from langchain_core.messages import (
-            SystemMessage, HumanMessage, AIMessage
+            SystemMessage, HumanMessage, AIMessage, ToolMessage
         )
 
         api_key = os.environ.get("GOOGLE_API_KEY")
-        llm = ChatGoogleGenerativeAI(
+        llm_base = ChatGoogleGenerativeAI(
             model="gemini-2.5-flash",
             google_api_key=api_key,
             temperature=0.7,
             max_output_tokens=8192,
         )
+        llm = llm_base.bind_tools([
+            fetch_top_etf_options,
+            run_portfolio_backtest,
+        ])
 
         system_prompt = build_system_prompt(
             body.existing_profile or {}
@@ -103,11 +111,40 @@ async def advisor_message(body: AdvisorMessage):
             HumanMessage(content=body.user_message)
         )
 
-        response = llm.invoke(messages)
-        reply = response.content
+        # Tool map for execution
+        tool_map = {
+            "fetch_top_etf_options": fetch_top_etf_options,
+            "run_portfolio_backtest": run_portfolio_backtest,
+        }
+
+        # Tool-call loop: invoke → execute tools → feed back → repeat
+        while True:
+            response = llm.invoke(messages)
+
+            if hasattr(response, 'tool_calls') and response.tool_calls:
+                messages.append(response)
+                for tc in response.tool_calls:
+                    func = tool_map.get(tc["name"])
+                    if func:
+                        try:
+                            result = func.invoke(tc["args"])
+                        except Exception as e:
+                            result = f"Tool error: {str(e)}"
+                    else:
+                        result = f"Unknown tool: {tc['name']}"
+                    messages.append(
+                        ToolMessage(
+                            content=str(result),
+                            tool_call_id=tc["id"]
+                        )
+                    )
+                continue
+            else:
+                break
+
+        reply = response.content or ""
 
         allocation_json = None
-        backtest_results = None
         arjun_text = reply
 
         if "--- PORTFOLIO ALLOCATION (JSON) ---" in reply:
@@ -125,74 +162,20 @@ async def advisor_message(body: AdvisorMessage):
             except Exception:
                 allocation_json = None
 
-            # Auto-run backtest if allocation generated
-            if allocation_json is not None:
-                try:
-                    from backtester import (
-                        auto_select_etfs,
-                        run_backtest,
-                    )
-
-                    block = allocation_json
-                    if "_sip_plan" not in allocation_json:
-                        tenure_keys = [
-                            k for k in allocation_json
-                            if k.startswith("tenure_")
-                        ]
-                        if tenure_keys:
-                            block = allocation_json[
-                                tenure_keys[0]
-                            ]
-
-                    monthly_sip = float(
-                        (block.get("_sip_plan") or {})
-                        .get("monthly_sip") or 10000
-                    )
-
-                    allocation = {
-                        k: v.get("percentage", 0)
-                        for k, v in block.get(
-                            "allocation", {}
-                        ).items()
-                        if isinstance(v, dict)
-                        and v.get("percentage", 0) > 0
-                    }
-
-                    if allocation:
-                        etf_selections = auto_select_etfs(
-                            allocation, monthly_sip
-                        )
-                        if etf_selections:
-                            results = run_backtest(
-                                allocation,
-                                etf_selections,
-                                monthly_sip,
-                                years=5
-                            )
-                            if "error" not in results:
-                                backtest_results = {
-                                    "summary": results[
-                                        "summary"
-                                    ],
-                                    "final_holdings": results[
-                                        "final_holdings"
-                                    ],
-                                    "yearly_summary": results[
-                                        "yearly_summary"
-                                    ],
-                                    "monthly_detail": results[
-                                        "monthly_detail"
-                                    ],
-                                }
-                except Exception as e:
-                    print(f"Backtest error: {e}")
-                    backtest_results = None
+        # Detect [PORTFOLIO_FINALISED] tag from Arjun
+        finalise_confirmed = False
+        if "[PORTFOLIO_FINALISED]" in arjun_text:
+            finalise_confirmed = True
+            arjun_text = arjun_text.replace(
+                "[PORTFOLIO_FINALISED]", ""
+            ).strip()
 
         return {
             "response": arjun_text,
             "allocation_json": allocation_json,
-            "backtest_results": backtest_results,
-            "done": allocation_json is not None
+            "backtest_results": None,
+            "done": allocation_json is not None,
+            "finalise_confirmed": finalise_confirmed,
         }
 
     except Exception as e:

@@ -219,6 +219,267 @@ def get_price_history(ticker: str, start_date: str, end_date: str) -> list:
         return []
 
 
+# ── Batch price fetching ─────────────────────────────────────────────────────
+
+def get_latest_prices_batch(tickers: list) -> dict:
+    """
+    Fetch latest closing prices for multiple tickers.
+    Tries yfinance batch download first (fastest), falls back to
+    per-ticker fetch via technical.py if batch fails.
+    Returns {ticker: price} dict.
+    """
+    import yfinance as yf
+
+    prices = {}
+    nse_tickers = [t.upper().strip() + ".NS" if not t.upper().strip().endswith((".NS", ".BO"))
+                   else t.upper().strip() for t in tickers]
+    ticker_map = dict(zip(nse_tickers, [t.upper().strip() for t in tickers]))
+
+    try:
+        # Batch download — single API call for all tickers
+        df = yf.download(nse_tickers, period="5d", group_by="ticker",
+                         auto_adjust=True, progress=False)
+        if not df.empty:
+            for nse_t, orig_t in ticker_map.items():
+                try:
+                    if len(nse_tickers) == 1:
+                        close_series = df["Close"].dropna()
+                    else:
+                        close_series = df[nse_t]["Close"].dropna()
+                    if not close_series.empty:
+                        prices[orig_t] = float(close_series.iloc[-1])
+                except (KeyError, IndexError):
+                    pass
+    except Exception as e:
+        print(f"    ⚠️  Batch fetch failed: {e}, falling back to per-ticker")
+
+    # Fallback: fetch missing tickers individually via technical.py
+    for orig_t in [t.upper().strip() for t in tickers]:
+        if orig_t not in prices or prices[orig_t] <= 0:
+            prices[orig_t] = get_latest_price(orig_t)
+
+    return prices
+
+
+# ── Parse tenure years from key name ─────────────────────────────────────────
+
+def _parse_tenure_years(tenure_key: str) -> int:
+    """Extract years from tenure key like 'tenure_5yr_house' → 5."""
+    import re
+    match = re.search(r'(\d+)\s*yr', tenure_key.lower())
+    return int(match.group(1)) if match else 5
+
+
+# ── Fetch top ETF options (core logic for Tool 1) ────────────────────────────
+
+def fetch_top_etf_options_core(allocation: dict, monthly_sip: float) -> dict:
+    """
+    For each asset class in allocation:
+    1. Load ALL ETFs from ETFS.json for that category
+    2. Batch-fetch live prices
+    3. Filter to affordable only (units_per_month >= 1)
+    4. Return top 3 affordable, sorted by rank
+    Returns full metadata (for LLM) — Arjun decides what to show user.
+    """
+    catalogue = load_etf_catalogue()
+    result = {}
+
+    for asset_class, pct in allocation.items():
+        if pct == 0:
+            continue
+
+        cat_key = _normalise(asset_class)
+        if cat_key is None:
+            continue
+
+        options = catalogue.get(cat_key, [])
+        if not options:
+            continue
+
+        monthly_amount = monthly_sip * (pct / 100)
+
+        # Batch fetch prices for all ETFs in this category
+        all_tickers = [opt["ticker"] for opt in options]
+        prices = get_latest_prices_batch(all_tickers)
+
+        # Build priced options with affordability
+        priced = []
+        for opt in options:
+            price = prices.get(opt["ticker"], 0.0)
+            units = int(monthly_amount // price) if price > 0 else 0
+            if units >= 1:
+                priced.append({
+                    "rank":              opt["rank"],
+                    "ticker":            opt["ticker"],
+                    "name":              opt["name"],
+                    "live_price":        round(price, 2),
+                    "units_per_month":   units,
+                    "allocation_monthly": round(monthly_amount, 2),
+                    "aum_cr":            opt["aum_cr"],
+                    "expense_ratio":     opt["expense_ratio"],
+                    "tracking_error":    opt["tracking_error"],
+                    "liquidity":         opt["liquidity"],
+                    "returns":           opt["returns"],
+                    "pick_type":         opt["pick_type"],
+                    "reason":            opt["reason"],
+                })
+
+        # Sort by rank, take top 3
+        priced.sort(key=lambda x: x["rank"])
+        result[asset_class] = priced[:3]
+
+    return result
+
+
+def fetch_top_etf_options_multi_tenure(arjun_json: dict) -> dict:
+    """
+    Handles both single-tenure and multi-tenure allocation JSONs.
+    For multi-tenure: runs fetch_top_etf_options_core separately per tenure.
+    Returns: {tenure_key: {asset_class: [etf_options]}} or flat dict for single.
+    """
+    tenure_keys = [k for k in arjun_json if k.startswith("tenure_")]
+
+    if tenure_keys:
+        # Multi-tenure
+        results = {}
+        for tkey in tenure_keys:
+            block = arjun_json[tkey]
+            monthly_sip = float((block.get("_sip_plan") or {}).get("monthly_sip") or 0)
+            allocation = {
+                k: v.get("percentage", 0)
+                for k, v in block.get("allocation", {}).items()
+                if isinstance(v, dict) and v.get("percentage", 0) > 0
+            }
+            if allocation and monthly_sip > 0:
+                results[tkey] = fetch_top_etf_options_core(allocation, monthly_sip)
+        return results
+    else:
+        # Single tenure
+        monthly_sip = float((arjun_json.get("_sip_plan") or {}).get("monthly_sip") or 0)
+        allocation = {
+            k: v.get("percentage", 0)
+            for k, v in arjun_json.get("allocation", {}).items()
+            if isinstance(v, dict) and v.get("percentage", 0) > 0
+        }
+        if allocation and monthly_sip > 0:
+            return fetch_top_etf_options_core(allocation, monthly_sip)
+        return {}
+
+
+# ── Run backtest with user-selected ETFs (core logic for Tool 2) ─────────────
+
+def run_backtest_for_selections(
+    arjun_json: dict,
+    selected_etfs: dict,
+) -> dict:
+    """
+    Run backtest using user-selected ETFs (not auto-picked).
+    Handles single-tenure and multi-tenure.
+
+    selected_etfs for single:  {"Large Cap": "NIFTYBEES", "Gold": "GOLDBEES"}
+    selected_etfs for multi:   {"tenure_5yr_house": {"Large Cap": "NIFTYBEES"}, ...}
+
+    Tenure-aware duration:
+      - tenure > 5yr → 5-year backtest
+      - tenure ≤ 5yr → exact tenure
+    """
+    tenure_keys = [k for k in arjun_json if k.startswith("tenure_")]
+
+    if tenure_keys:
+        # Multi-tenure
+        results = {}
+        for tkey in tenure_keys:
+            block = arjun_json[tkey]
+            monthly_sip = float((block.get("_sip_plan") or {}).get("monthly_sip") or 0)
+            allocation = {
+                k: v.get("percentage", 0)
+                for k, v in block.get("allocation", {}).items()
+                if isinstance(v, dict) and v.get("percentage", 0) > 0
+            }
+            tenure_years = _parse_tenure_years(tkey)
+            backtest_years = min(tenure_years, 5)
+
+            etfs_for_tenure = selected_etfs.get(tkey, {})
+            if not etfs_for_tenure or not allocation or monthly_sip <= 0:
+                continue
+
+            # Build etf_selections dict matching run_backtest format
+            etf_selections = _build_etf_selections(
+                allocation, etfs_for_tenure, monthly_sip
+            )
+            if etf_selections:
+                bt_result = run_backtest(
+                    allocation, etf_selections, monthly_sip, years=backtest_years
+                )
+                bt_result["backtest_years"] = backtest_years
+                bt_result["tenure_years"] = tenure_years
+                results[tkey] = bt_result
+        return results
+    else:
+        # Single tenure
+        monthly_sip = float((arjun_json.get("_sip_plan") or {}).get("monthly_sip") or 0)
+        allocation = {
+            k: v.get("percentage", 0)
+            for k, v in arjun_json.get("allocation", {}).items()
+            if isinstance(v, dict) and v.get("percentage", 0) > 0
+        }
+        etf_selections = _build_etf_selections(
+            allocation, selected_etfs, monthly_sip
+        )
+        if etf_selections:
+            return run_backtest(allocation, etf_selections, monthly_sip, years=5)
+        return {"error": "No ETF selections could be built."}
+
+
+def _build_etf_selections(
+    allocation: dict, selected_tickers: dict, monthly_sip: float
+) -> dict:
+    """
+    Build the etf_selections dict from user-selected tickers.
+    Fetches live prices for selected tickers.
+    Format matches what run_backtest() expects.
+
+    selected_tickers: {"Large Cap": "NIFTYBEES", "Gold": "GOLDBEES"}
+    """
+    catalogue = load_etf_catalogue()
+    tickers_to_fetch = list(selected_tickers.values())
+    prices = get_latest_prices_batch(tickers_to_fetch)
+
+    selections = {}
+    for asset_class, ticker in selected_tickers.items():
+        pct = allocation.get(asset_class, 0)
+        if pct == 0:
+            continue
+        monthly_amount = monthly_sip * (pct / 100)
+        price = prices.get(ticker, 0.0)
+        units = int(monthly_amount // price) if price > 0 else 0
+
+        # Find ETF details from catalogue
+        cat_key = _normalise(asset_class)
+        etf_info = {}
+        if cat_key:
+            for opt in catalogue.get(cat_key, []):
+                if opt["ticker"] == ticker:
+                    etf_info = opt
+                    break
+
+        selections[asset_class] = {
+            "name":            etf_info.get("name", ticker),
+            "ticker":          ticker,
+            "live_price":      price,
+            "monthly_amount":  round(monthly_amount, 2),
+            "units_per_month": units,
+            "pick_type":       etf_info.get("pick_type", ""),
+            "liquidity":       etf_info.get("liquidity", ""),
+            "aum_cr":          etf_info.get("aum_cr", 0),
+            "expense_ratio":   etf_info.get("expense_ratio"),
+            "returns":         etf_info.get("returns", {}),
+            "reason":          etf_info.get("reason", ""),
+        }
+
+    return selections
+
+
 # ── Auto ETF Selection ────────────────────────────────────────────────────────
 
 def auto_select_etfs(allocation: dict, monthly_sip: float) -> dict:
@@ -467,14 +728,20 @@ def run_backtest(
         info  = etf_selections.get(asset_class, {})
         price = _ffill_price(price_history, asset_class, last_ym)
         units = units_held[asset_class]
-        final_holdings[asset_class] = {
+        data_months = len(price_history[asset_class])
+        data_years_val = round(data_months / 12, 1)
+        holding = {
             "ticker":         info.get("ticker", ""),
             "name":           info.get("name", ""),
             "units_held":     int(units),
             "current_price":  round(price, 2),
             "current_value":  round(units * price, 2),
             "allocation_pct": round(norm_alloc[asset_class] * 100, 1),
+            "data_years":     data_years_val,
         }
+        if data_years_val < years - 0.5:
+            holding["data_flag"] = f"Only {data_years_val} years of data available"
+        final_holdings[asset_class] = holding
 
     return {
         "summary": {

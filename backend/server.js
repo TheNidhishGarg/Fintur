@@ -16,6 +16,7 @@ app.use(passport.initialize());
 app.use("/auth", require("./routes/auth.routes"));
 const aiRoutes = require("./routes/ai.routes");
 app.use("/api/ai", aiRoutes);
+app.use("/portfolio", require("./routes/portfolio.routes"));
 
 app.get("/health", (req, res) => {
     res.json({ status: "Fintur backend running" });

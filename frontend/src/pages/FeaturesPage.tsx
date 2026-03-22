@@ -35,6 +35,7 @@ const fundCards = [
         title: "Fund Portfolio Builder",
         description:
             "Build a personalised mutual fund portfolio tailored to your goals and risk appetite.",
+        route: "/create-portfolio",
     },
     {
         icon: TrendingUp,

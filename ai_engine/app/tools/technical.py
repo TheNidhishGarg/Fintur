@@ -22,7 +22,11 @@ def fetch_technical_data(ticker: str, period: str = "5y", start_date: Optional[s
     """
     try:
         # Standardize Ticker
-        ticker = ticker.upper().replace(".NS", "").strip() + ".NS"
+        ticker = ticker.upper().strip()
+        # Add .NS suffix for NSE tickers if missing
+        if not ticker.endswith(".NS") and \
+           not ticker.endswith(".BO"):
+            ticker = ticker + ".NS"
         stock = yf.Ticker(ticker)
         
         # --- 1. FETCHING DATA ---

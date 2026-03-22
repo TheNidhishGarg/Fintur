@@ -7,6 +7,7 @@ import InvestorTypePage from "./pages/InvestorTypePage.tsx";
 import LearnPage from "./pages/LearnPage.tsx";
 import FeaturesPage from "./pages/FeaturesPage";
 import StockAnalyserPage from "./pages/StockAnalyserPage";
+import CreatePortfolioPage from "./pages/CreatePortfolioPage";
 import { useAuthStore } from "./lib/store/authStore.ts";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -62,6 +63,9 @@ export default function App() {
                         </ProtectedRoute>
                     }
                 />
+                <Route path="/create-portfolio" element={
+                    <ProtectedRoute><CreatePortfolioPage /></ProtectedRoute>
+                } />
             </Routes>
         </BrowserRouter>
     );

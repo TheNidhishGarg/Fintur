@@ -26,7 +26,7 @@ if TOOLS_DIR not in sys.path:
     sys.path.insert(0, TOOLS_DIR)
 
 # Import technical.py bypassing @tool decorator
-from technical import fetch_technical_data
+from app.tools.technical import fetch_technical_data
 _fetch = fetch_technical_data.func
 
 
